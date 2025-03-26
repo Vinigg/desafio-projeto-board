@@ -5,6 +5,7 @@ import com.dio.desafio.projeto.board.repository.BoardRepository;
 import com.dio.desafio.projeto.board.service.BoardService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -13,6 +14,11 @@ public class BoardServiceImpl implements BoardService {
 
     public BoardServiceImpl(BoardRepository boardRepository) {
         this.boardRepository = boardRepository;
+    }
+
+    @Override
+    public List<Board> findAll() {
+        return boardRepository.findAll();
     }
 
     @Override
