@@ -13,7 +13,6 @@ import java.util.List;
 @RequestMapping("/boards")
 public class BoardController {
 
-
     private final BoardService boardService;
 
     public BoardController(BoardService boardService) {

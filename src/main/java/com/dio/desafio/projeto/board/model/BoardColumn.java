@@ -4,10 +4,9 @@ package com.dio.desafio.projeto.board.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-
+@Data
 @Entity
 @Table(name = "board_column")
-@Data
 public class BoardColumn {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

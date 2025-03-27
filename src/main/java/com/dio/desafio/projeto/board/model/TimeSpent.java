@@ -22,6 +22,12 @@ public class TimeSpent {
     @JoinColumn(name = "column_id", nullable = false)
     private BoardColumn boardColumn;
 
-    @Column(name = "time_spent", nullable = false)
-    private LocalDateTime timeSpent;
+    @Column(name = "time_spent_seconds") // Armazena a duração em segundos
+    private Long timeSpentSeconds;
+
+    @Column(name = "entry_time", nullable = false) // Momento em que o card entrou na coluna
+    private LocalDateTime entryTime;
+
+    @Column(name = "exit_time") // Momento em que o card saiu da coluna (inicialmente null)
+    private LocalDateTime exitTime;
 }
