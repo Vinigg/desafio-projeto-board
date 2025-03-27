@@ -30,5 +30,10 @@ public class BoardColumn {
     @JoinColumn(name = "card_id")
     private Card card;
 
-
+    public BoardColumn(String name, ColumnType type, Integer boardOrder, Board board) {
+        this.name = name;
+        this.type = type;
+        this.boardOrder = boardOrder;
+        this.board = board;
+    }
 }

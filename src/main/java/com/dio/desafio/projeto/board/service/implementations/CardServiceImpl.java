@@ -4,6 +4,7 @@ import com.dio.desafio.projeto.board.model.Board;
 import com.dio.desafio.projeto.board.model.Card;
 import com.dio.desafio.projeto.board.repository.CardRepository;
 import com.dio.desafio.projeto.board.service.CardService;
+import com.dio.desafio.projeto.board.service.helpers.CardMovementService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,8 +15,11 @@ public class CardServiceImpl implements CardService {
 
     private final CardRepository cardRepository;
 
-    public CardServiceImpl(CardRepository cardRepository) {
+    private final CardMovementService cardMovementService;
+
+    public CardServiceImpl(CardRepository cardRepository, CardMovementService cardMovementService) {
         this.cardRepository = cardRepository;
+        this.cardMovementService = cardMovementService;
     }
 
     @Override
@@ -33,6 +37,9 @@ public class CardServiceImpl implements CardService {
         if(cardRepository.existsByName(cardToCreate.getName())){
             throw new IllegalArgumentException("Already has an Card with this name");
         }
-        return cardRepository.save(cardToCreate);
+        Card createdCard = cardRepository.save(cardToCreate);
+        cardMovementService.cardInitialTracking(cardToCreate, cardToCreate.getCurrentColumn());
+        return createdCard;
     }
+
 }

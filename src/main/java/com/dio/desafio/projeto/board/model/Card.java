@@ -16,6 +16,10 @@ public class Card {
     @Column(nullable = false)
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "column_id",nullable = false) // Guarda apenas o ID da coluna atual
+    private BoardColumn currentColumn;
+
     @Column(name = "moved_at")
     private LocalDateTime movedAt;
 

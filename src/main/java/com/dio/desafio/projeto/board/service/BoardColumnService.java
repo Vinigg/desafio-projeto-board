@@ -1,7 +1,7 @@
 package com.dio.desafio.projeto.board.service;
 
+import com.dio.desafio.projeto.board.model.Board;
 import com.dio.desafio.projeto.board.model.BoardColumn;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -14,4 +14,5 @@ public interface BoardColumnService {
 
     BoardColumn create(BoardColumn boardColumnToCreate);
 
+    void bulkDefaultColumns(Board board);
 }

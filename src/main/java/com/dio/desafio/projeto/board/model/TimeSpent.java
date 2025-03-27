@@ -2,8 +2,10 @@ package com.dio.desafio.projeto.board.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDateTime;
+
 
 @Entity
 @Data
@@ -20,7 +22,7 @@ public class TimeSpent {
 
     @ManyToOne
     @JoinColumn(name = "column_id", nullable = false)
-    private BoardColumn boardColumn;
+    private BoardColumn column;
 
     @Column(name = "time_spent_seconds") // Armazena a duração em segundos
     private Long timeSpentSeconds;
@@ -30,4 +32,5 @@ public class TimeSpent {
 
     @Column(name = "exit_time") // Momento em que o card saiu da coluna (inicialmente null)
     private LocalDateTime exitTime;
+
 }
