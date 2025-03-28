@@ -13,7 +13,7 @@ public interface BoardColumnService {
 
     BoardColumnDTO findById(Long id);
 
-    BoardColumnDTO create(BoardColumn boardColumnToCreate);
+    BoardColumnDTO create(BoardColumnDTO boardColumnToCreate);
 
     void bulkDefaultColumns(Board board);
 }

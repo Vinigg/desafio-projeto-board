@@ -12,4 +12,6 @@ public interface CardService {
     CardDTO findById(Long id);
 
     CardDTO create(CardDTO cardToCreate);
+
+    CardDTO updateCard(Long id,CardDTO cardToUpdate);
 }

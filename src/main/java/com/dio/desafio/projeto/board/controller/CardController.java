@@ -1,13 +1,10 @@
 package com.dio.desafio.projeto.board.controller;
 
-import com.dio.desafio.projeto.board.model.BoardColumn;
-import com.dio.desafio.projeto.board.model.Card;
 import com.dio.desafio.projeto.board.model.DTOs.BoardColumnDTO;
-import com.dio.desafio.projeto.board.model.DTOs.BoardDTO;
 import com.dio.desafio.projeto.board.model.DTOs.CardDTO;
 import com.dio.desafio.projeto.board.service.BoardColumnService;
 import com.dio.desafio.projeto.board.service.CardService;
-import com.dio.desafio.projeto.board.service.helpers.CardMovementService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -19,16 +16,13 @@ import java.util.List;
 @RequestMapping("/cards")
 public class CardController {
 
-    private final CardService cardService;
-    private final BoardColumnService boardColumnService;
-    private final CardMovementService cardMovementService;
+    @Autowired
+    private CardService cardService;
+    @Autowired
+    private BoardColumnService boardColumnService;
 
 
-    public CardController(CardService cardService, BoardColumnService boardColumnService, CardMovementService cardMovementService) {
-        this.cardService = cardService;
-        this.boardColumnService = boardColumnService;
-        this.cardMovementService = cardMovementService;
-    }
+
 
     @GetMapping
     public ResponseEntity<List<CardDTO>> findAll(){
@@ -52,12 +46,10 @@ public class CardController {
         return ResponseEntity.created(location).body(cardCreated);
     }
 
-    @PutMapping("/{cardId}/move")
-    public ResponseEntity<CardDTO> moveCard(@PathVariable Long cardId, @RequestParam Long newColumnId){
+    @PutMapping("/{cardId}")
+    public ResponseEntity<CardDTO> updateCard(@PathVariable Long cardId, @RequestBody CardDTO updateCard){
         CardDTO card = cardService.findById(cardId);
-        BoardColumnDTO newColumn = boardColumnService.findById(newColumnId);
 
-        cardMovementService.moveToColumn(card,newColumn);
 
         return ResponseEntity.ok().build();
     }

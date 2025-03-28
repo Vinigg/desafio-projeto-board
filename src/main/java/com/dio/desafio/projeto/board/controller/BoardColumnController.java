@@ -32,7 +32,7 @@ public class BoardColumnController {
     }
 
     @PostMapping
-    public ResponseEntity<BoardColumnDTO> create(@RequestBody BoardColumn boardColumnToCreate){
+    public ResponseEntity<BoardColumnDTO> create(@RequestBody BoardColumnDTO boardColumnToCreate){
         var columnCreated = boardColumnService.create(boardColumnToCreate);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

@@ -2,6 +2,7 @@ package com.dio.desafio.projeto.board.model.DTOs;
 
 import com.dio.desafio.projeto.board.model.BoardColumn;
 import com.dio.desafio.projeto.board.model.Card;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CardDTO {
     private Long id;
+    @NotNull
     private String name;
+    @NotNull
     private Long columnId;
     private LocalDateTime movedAt;
     private LocalDateTime createdAt;

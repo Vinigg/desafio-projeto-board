@@ -15,7 +15,7 @@ public interface TimeSpentService {
 
     TimeSpentDTO findById(Long id);
 
-    void startTracking(CardDTO card, BoardColumnDTO column);
+    void startTracking(Long cardId, Long columnId);
 
-    void stopTracking(CardDTO card, BoardColumnDTO column);
+    void stopTracking(Long cardId, Long columnId);
 }

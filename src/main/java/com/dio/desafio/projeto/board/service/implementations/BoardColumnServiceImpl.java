@@ -6,6 +6,7 @@ import com.dio.desafio.projeto.board.model.ColumnType;
 import com.dio.desafio.projeto.board.model.DTOs.BoardColumnDTO;
 import com.dio.desafio.projeto.board.repository.BoardColumnRepository;
 import com.dio.desafio.projeto.board.service.BoardColumnService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -16,11 +17,8 @@ import java.util.stream.Collectors;
 @Service
 public class BoardColumnServiceImpl implements BoardColumnService {
 
-    private final BoardColumnRepository boardColumnRepository;
-
-    public BoardColumnServiceImpl(BoardColumnRepository boardColumnRepository) {
-        this.boardColumnRepository = boardColumnRepository;
-    }
+    @Autowired
+    private  BoardColumnRepository boardColumnRepository;
 
     @Override
     public List<BoardColumnDTO> findAll() {
@@ -29,16 +27,30 @@ public class BoardColumnServiceImpl implements BoardColumnService {
 
     @Override
     public BoardColumnDTO findById(Long id) {
-        return boardColumnRepository.findById(id).map(BoardColumnDTO::fromEntity).orElseThrow(NoSuchElementException::new);
+        //Recebe um id e busca no Repositório um board_column. Lança um erro caso não encontre.
+        BoardColumn column = boardColumnRepository.findById(id).orElseThrow(NoSuchElementException::new);
+
+        //Retorna um BoardColumnDTO, transformando através do metodo fromEntity.
+        return BoardColumnDTO.fromEntity(column);
     }
 
     @Override
-    public BoardColumnDTO create(BoardColumn boardColumnToCreate) {
-        if(boardColumnRepository.existsByName(boardColumnToCreate.getName()))
+    public BoardColumnDTO create(BoardColumnDTO columnDTO) {
+        //Recebe um BoardColumnDTO, pois não queremos preencher os relacionamentos da coluna, ela é criada vazia.
+
+        // Verifica a existência de outra coluna com o mesmo nome.
+        if(boardColumnRepository.existsByName(columnDTO.getName()))
         {
             throw new IllegalArgumentException("Already has an Column with this name");
         }
-        return BoardColumnDTO.fromEntity(boardColumnRepository.save(boardColumnToCreate));
+
+        //Transforma o DTO em uma entidade para ser salva no repositório
+        BoardColumn columnToCreate = columnDTO.toEntity();
+        //Salva a entidade no repositório
+        boardColumnRepository.save(columnToCreate);
+
+        //Retorna um DTO
+        return columnDTO;
     }
 
     @Override
