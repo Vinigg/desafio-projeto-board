@@ -1,6 +1,7 @@
 package com.dio.desafio.projeto.board.controller;
 
 import com.dio.desafio.projeto.board.model.Board;
+import com.dio.desafio.projeto.board.model.DTOs.BoardDTO;
 import com.dio.desafio.projeto.board.service.BoardService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,19 +21,18 @@ public class BoardController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Board>> findAll(){
-        var boards =  boardService.findAll();
-        return ResponseEntity.ok(boards);
+    public ResponseEntity<List<BoardDTO>> findAll(){
+        return ResponseEntity.ok(boardService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Board> findById(@PathVariable Integer id){
+    public ResponseEntity<BoardDTO> findById(@PathVariable Long id){
         var board = boardService.findById(id);
         return ResponseEntity.ok(board);
     }
 
     @PostMapping
-    public ResponseEntity<Board> create(@RequestBody Board boardToCreate){
+    public ResponseEntity<BoardDTO> create(@RequestBody Board boardToCreate){
         var boardCreated = boardService.create(boardToCreate);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

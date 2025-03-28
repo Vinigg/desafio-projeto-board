@@ -1,17 +1,18 @@
 package com.dio.desafio.projeto.board.service;
 
 import com.dio.desafio.projeto.board.model.Board;
+import com.dio.desafio.projeto.board.model.DTOs.BoardDTO;
 
 import java.util.List;
 
 
 public interface BoardService {
 
-    List<Board> findAll();
+    List<BoardDTO> findAll();
 
-    Board findById(Integer id);
+    BoardDTO findById(Long id);
 
-    Board create(Board boardToCreate);
+    BoardDTO create(Board boardToCreate);
 
 
 }

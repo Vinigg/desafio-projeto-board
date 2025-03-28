@@ -2,6 +2,9 @@ package com.dio.desafio.projeto.board.controller;
 
 import com.dio.desafio.projeto.board.model.BoardColumn;
 import com.dio.desafio.projeto.board.model.Card;
+import com.dio.desafio.projeto.board.model.DTOs.BoardColumnDTO;
+import com.dio.desafio.projeto.board.model.DTOs.BoardDTO;
+import com.dio.desafio.projeto.board.model.DTOs.CardDTO;
 import com.dio.desafio.projeto.board.service.BoardColumnService;
 import com.dio.desafio.projeto.board.service.CardService;
 import com.dio.desafio.projeto.board.service.helpers.CardMovementService;
@@ -28,19 +31,19 @@ public class CardController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Card>> findAll(){
+    public ResponseEntity<List<CardDTO>> findAll(){
         var cards =  cardService.findAll();
         return ResponseEntity.ok(cards);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Card> findById(@PathVariable Integer id){
+    public ResponseEntity<CardDTO> findById(@PathVariable Long id){
         var card = cardService.findById(id);
         return ResponseEntity.ok(card);
     }
 
     @PostMapping
-    public ResponseEntity<Card> create(@RequestBody Card cardToCreate){
+    public ResponseEntity<CardDTO> create(@RequestBody CardDTO cardToCreate){
         var cardCreated = cardService.create(cardToCreate);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -50,9 +53,9 @@ public class CardController {
     }
 
     @PutMapping("/{cardId}/move")
-    public ResponseEntity<Card> moveCard(@PathVariable Integer cardId, @RequestParam Integer newColumnId){
-        Card card = cardService.findById(cardId);
-        BoardColumn newColumn = boardColumnService.findById(newColumnId);
+    public ResponseEntity<CardDTO> moveCard(@PathVariable Long cardId, @RequestParam Long newColumnId){
+        CardDTO card = cardService.findById(cardId);
+        BoardColumnDTO newColumn = boardColumnService.findById(newColumnId);
 
         cardMovementService.moveToColumn(card,newColumn);
 

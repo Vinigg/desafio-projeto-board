@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface TimeSpentRepository extends JpaRepository<TimeSpent,Integer> {
+public interface TimeSpentRepository extends JpaRepository<TimeSpent,Long> {
     Optional<TimeSpent> findByCardAndColumnIdAndExitTimeIsNull(Card card, BoardColumn column);
 }

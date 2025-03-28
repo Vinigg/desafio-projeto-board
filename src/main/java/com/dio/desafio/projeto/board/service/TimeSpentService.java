@@ -1,19 +1,21 @@
 package com.dio.desafio.projeto.board.service;
 
 
-import com.dio.desafio.projeto.board.model.BoardColumn;
-import com.dio.desafio.projeto.board.model.Card;
+
+import com.dio.desafio.projeto.board.model.DTOs.BoardColumnDTO;
+import com.dio.desafio.projeto.board.model.DTOs.CardDTO;
+import com.dio.desafio.projeto.board.model.DTOs.TimeSpentDTO;
 import com.dio.desafio.projeto.board.model.TimeSpent;
 
 import java.util.List;
 
 public interface TimeSpentService {
 
-    List<TimeSpent> findAll();
+    List<TimeSpentDTO> findAll();
 
-    TimeSpent findById(Integer id);
+    TimeSpentDTO findById(Long id);
 
-    void startTracking(Card card, BoardColumn column);
+    void startTracking(CardDTO card, BoardColumnDTO column);
 
-    void stopTracking(Card card, BoardColumn column);
+    void stopTracking(CardDTO card, BoardColumnDTO column);
 }

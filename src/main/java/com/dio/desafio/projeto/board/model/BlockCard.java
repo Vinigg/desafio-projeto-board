@@ -11,13 +11,13 @@ import java.time.LocalDateTime;
 public class BlockCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "block_reason", nullable = false)
     private String blockReason;
 
     @Column(name = "blocked_at", nullable = false)
-    private final LocalDateTime blockedAt = LocalDateTime.now();
+    private LocalDateTime blockedAt = LocalDateTime.now();
 
     @Column(name = "unblock_reason")
     private String unblockReason;

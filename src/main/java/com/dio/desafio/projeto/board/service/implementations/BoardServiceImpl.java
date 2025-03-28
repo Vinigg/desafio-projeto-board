@@ -1,6 +1,7 @@
 package com.dio.desafio.projeto.board.service.implementations;
 
 import com.dio.desafio.projeto.board.model.Board;
+import com.dio.desafio.projeto.board.model.DTOs.BoardDTO;
 import com.dio.desafio.projeto.board.repository.BoardColumnRepository;
 import com.dio.desafio.projeto.board.repository.BoardRepository;
 import com.dio.desafio.projeto.board.service.BoardColumnService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -23,17 +25,19 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<Board> findAll() {
-        return boardRepository.findAll();
+    public List<BoardDTO> findAll() {
+        return boardRepository.findAll().stream()
+                .map(BoardDTO::fromEntity)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Board findById(Integer id) {
-        return boardRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    public BoardDTO findById(Long id) {
+        return boardRepository.findById(id).map(BoardDTO::fromEntity).orElseThrow(NoSuchElementException::new);
     }
 
     @Override
-    public Board create(Board boardToCreate) {
+    public BoardDTO create(Board boardToCreate) {
         if (boardRepository.existsByName(boardToCreate.getName())){
             throw new IllegalArgumentException("Already has an Board with this name");
         }
@@ -41,6 +45,6 @@ public class BoardServiceImpl implements BoardService {
         board.setName(boardToCreate.getName());
         boardRepository.save(board);
         boardColumnService.bulkDefaultColumns(board);
-        return board;
+        return BoardDTO.fromEntity(board);
     }
 }

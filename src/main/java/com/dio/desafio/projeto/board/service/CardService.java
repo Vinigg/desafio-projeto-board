@@ -2,13 +2,14 @@ package com.dio.desafio.projeto.board.service;
 
 import com.dio.desafio.projeto.board.model.Board;
 import com.dio.desafio.projeto.board.model.Card;
+import com.dio.desafio.projeto.board.model.DTOs.CardDTO;
 
 import java.util.List;
 
 public interface CardService {
-    List<Card> findAll();
+    List<CardDTO> findAll();
 
-    Card findById(Integer id);
+    CardDTO findById(Long id);
 
-    Card create(Card cardToCreate);
+    CardDTO create(CardDTO cardToCreate);
 }
